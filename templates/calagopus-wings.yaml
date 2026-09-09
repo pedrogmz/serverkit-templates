@@ -1,4 +1,4 @@
-id: calagopus-panel
+id: calagopus-wings
 name: Calagopus Wings
 version: "1.2.0"
 description: A rewrite of Pterodactyl Wings in the Rust programming language. This rewrite aims to be 100% API compatible while implementing new features, better performance and more stability.

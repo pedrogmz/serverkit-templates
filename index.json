@@ -1,8 +1,8 @@
 {
   "name": "serverkit-official",
   "schema_version": 1,
-  "updated": "2026-08-30",
-  "count": 213,
+  "updated": "2026-09-08",
+  "count": 215,
   "templates": [
     {
       "id": "2fauth",
@@ -228,6 +228,17 @@
         "ssl"
       ],
       "sha256": "37be1453617878376ecddfd55279a8e2983aa9953a478ca150ba8c0214c32c64"
+    },
+    {
+      "id": "calagopus-wings",
+      "name": "Calagopus Wings",
+      "version": "1.2.0",
+      "description": "A rewrite of Pterodactyl Wings in the Rust programming language. This rewrite aims to be 100% API compatible while implementing new features, better performance and more stability.",
+      "icon": "https://serverkit.ai/imgs/template-icons/calagopus.svg",
+      "categories": [
+        "gaming"
+      ],
+      "sha256": "d448cdc29617cacc512d604a61225d42a7ded502dd67ccb9dd51cf9b8cbee989"
     },
     {
       "id": "cal-com",
@@ -892,6 +903,17 @@
         "home"
       ],
       "sha256": "adba7e8c3b0660e700d8ff9dbc3379bffb7233147f8d9a090e0b7255a1eb41f0"
+    },
+    {
+      "id": "hydrodactyl",
+      "name": "Hydrodactyl Panel",
+      "version": "6.3.2",
+      "description": "Hydrodactyl is a modern, performance-focused game server management panel forked from Pterodactyl. It delivers smaller bundles, faster builds, and an accessible, reimagined interface.",
+      "icon": "https://serverkit.ai/imgs/template-icons/hydrodactyl.svg",
+      "categories": [
+        "gaming"
+      ],
+      "sha256": "074d0f3f7b34c0e5d5450db69d72e369ecf1876cec412759a402973a48c2f9ae"
     },
     {
       "id": "homepage",
