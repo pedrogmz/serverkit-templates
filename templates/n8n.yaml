@@ -1,6 +1,6 @@
 id: n8n
 name: n8n
-version: "1.22"
+version: "2.39.0"
 description: Extendable workflow automation tool for connecting apps and services
 icon: https://serverkit.ai/imgs/template-icons/n8n.ico
 website: https://n8n.io

@@ -1,0 +1,144 @@
+id: hydrodactyl-panel
+name: Hydrodactyl Panel
+version: "6.3.2"
+description: Hydrodactyl is a modern, performance-focused game server management panel forked from Pterodactyl. It delivers smaller bundles, faster builds, and an accessible, reimagined interface.
+icon: https://serverkit.ai/imgs/template-icons/hydrodactyl.svg
+website: https://hydrodactyl.dev
+documentation: https://hydrodactyl.dev/docs/hydrodactyl
+categories:
+  - gaming
+
+variables:
+  - name: HTTP_PORT
+    description: Port for the Panel web UI (auto-assigned)
+    type: port
+    default: "5001"
+    hidden: true
+  - name: HTTPS_PORT
+    description: HTTPS port
+    type: port
+    default: "5443"
+    hidden: true
+  - name: MYSQL_PASSWORD
+    description: MySQL database user password
+    default: "CHANGE_ME"
+    required: true
+  - name: MYSQL_ROOT_PASSWORD
+    description: Mysql root password
+    default: "CHANGE_ME_TOO"
+    required: true
+  - name: APP_URL
+    description: Public URL used to access the Panel
+    default: "http://example.com"
+    required: true
+  - name: APP_TIMEZONE
+    description: Panel timezone (see http://php.net/manual/en/timezones.php)
+    default: "UTC"
+  - name: APP_SERVICE_AUTHOR
+    description: Email address used as the sender for system notifications
+    default: "noreply@example.com"
+  - name: DB_USERNAME
+    description: Database username used by the Panel
+    default: "pterodactyl"
+  - name: MAIL_FROM
+    description: Email address used as the sender for outgoing mail
+    default: "noreply@example.com"
+  - name: MAIL_DRIVER
+    description: Mail driver used to send email
+    default: "smtp"
+  - name: MAIL_HOST
+    description: SMTP mail server host
+    default: "mail"
+  - name: MAIL_PORT
+    description: SMTP mail server port
+    default: "1025"
+  - name: MAIL_USERNAME
+    description: SMTP username
+    default: ""
+  - name: MAIL_PASSWORD
+    description: SMTP password
+    default: ""
+  - name: MAIL_ENCRYPTION
+    description: SMTP encryption method
+    default: "true"
+
+ports:
+  - port: "${HTTP_PORT}"
+    protocol: tcp
+    description: HTTP
+  - port: "${HTTPS_PORT}"
+    protocol: tcp
+    description: HTTPS
+
+compose:
+  services:
+    database:
+      image: mariadb:10.5
+      restart: no
+      command: --default-authentication-plugin=mysql_native_password
+      volumes:
+        - '/srv/pterodactyl/database:/var/lib/mysql'
+      environment:
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        MYSQL_DATABASE: 'panel'
+        MYSQL_USER: 'pterodactyl'
+    cache:
+      image: redis:alpine
+      restart: no
+    panel:
+      image: ghcr.io/blueprintframework/hydrodactyl:v6.3.2
+      restart: no
+      ports:
+        - "${HTTP_PORT}:80"
+        - "${HTTPS_PORT}:443"
+      links:
+        - database
+        - cache
+      volumes:
+        - '/srv/pterodactyl/var/:/app/var/'
+        - '/srv/pterodactyl/nginx/:/etc/nginx/http.d/'
+        - '/srv/pterodactyl/certs/:/etc/letsencrypt/'
+        - '/srv/pterodactyl/logs/:/app/storage/logs'
+        - '/srv/pterodactyl/storage/:/app/storage/app/public'
+      environment:
+          APP_URL: ${APP_URL}
+          APP_TIMEZONE: ${APP_TIMEZONE}
+          APP_SERVICE_AUTHOR: ${APP_SERVICE_AUTHOR}
+          DB_USERNAME: ${DB_USERNAME}
+          MAIL_FROM: ${MAIL_FROM}
+          MAIL_DRIVER: ${MAIL_DRIVER}
+          MAIL_HOST: ${MAIL_HOST}
+          MAIL_PORT: ${MAIL_PORT}
+          MAIL_USERNAME: ${MAIL_USERNAME}
+          MAIL_PASSWORD: ${MAIL_PASSWORD}
+          MAIL_ENCRYPTION: ${MAIL_ENCRYPTION}
+          DB_PASSWORD: ${MYSQL_PASSWORD}
+          APP_ENV: 'production'
+          APP_ENVIRONMENT_ONLY: 'false'
+          CACHE_DRIVER: 'redis'
+          SESSION_DRIVER: 'redis'
+          QUEUE_DRIVER: 'redis'
+          REDIS_HOST: 'cache'
+          DB_CONNECTION: 'mariadb'
+          DB_HOST: 'database'
+          DB_PORT: '3306'
+          HASHIDS_LENGTH: 8
+  networks:
+    default:
+      ipam:
+        config:
+          - subnet: 172.20.0.0/16
+
+post_install: |
+  First create an user with: "php artisan p:user:make" inside the panel container.
+  Then start with the Panel Configuration:
+  - Access the panel via your server's IP/domain and login to your previously created user
+  - Navigate to admin panel (three dots menu → Admin)
+  - Navigate to Locations, make a new location. It can have any name
+  - Navigate to Nodes, create a new node
+    - FQDN is the domain or IP address (if you're not using HTTPS) of the server you're going to use as a backend
+    - You should make sure the daemon ports are free on your backend server
+  - On the new node, go to the:
+    - Configuration tab: Copy the contents to /etc/pterodactyl/config.yml on your backend server
+    - Allocation tab: Add some allocations to use for your servers. The IP should be 0.0.0.0. If you want to show a different IP in the UI (e.g. a subdomain), add an alias. You can input a range of ports like 25565-26000
