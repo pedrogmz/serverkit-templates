@@ -1,8 +1,8 @@
 {
   "name": "serverkit-official",
   "schema_version": 1,
-  "updated": "2026-08-30",
-  "count": 213,
+  "updated": "2026-09-08",
+  "count": 215,
   "templates": [
     {
       "id": "2fauth",
@@ -228,6 +228,17 @@
         "ssl"
       ],
       "sha256": "37be1453617878376ecddfd55279a8e2983aa9953a478ca150ba8c0214c32c64"
+    },
+    {
+      "id": "calagopus-wings",
+      "name": "Calagopus Wings",
+      "version": "1.2.0",
+      "description": "A rewrite of Pterodactyl Wings in the Rust programming language. This rewrite aims to be 100% API compatible while implementing new features, better performance and more stability.",
+      "icon": "https://serverkit.ai/imgs/template-icons/calagopus.svg",
+      "categories": [
+        "gaming"
+      ],
+      "sha256": "483c92cefb1051f2819b92b5a5dcdb8159b4f54b7962c5595e198c678c6f67d1"
     },
     {
       "id": "cal-com",
@@ -894,6 +905,17 @@
       "sha256": "adba7e8c3b0660e700d8ff9dbc3379bffb7233147f8d9a090e0b7255a1eb41f0"
     },
     {
+      "id": "hydrodactyl",
+      "name": "Hydrodactyl Panel",
+      "version": "6.3.2",
+      "description": "Hydrodactyl is a modern, performance-focused game server management panel forked from Pterodactyl. It delivers smaller bundles, faster builds, and an accessible, reimagined interface.",
+      "icon": "https://serverkit.ai/imgs/template-icons/hydrodactyl.svg",
+      "categories": [
+        "gaming"
+      ],
+      "sha256": "91aff64ce8d8dded400e8be29b06573d6c64207fd53c8cd1cc96b6f376b1a368"
+    },
+    {
       "id": "homepage",
       "name": "Homepage",
       "version": "1.0",
@@ -1510,7 +1532,7 @@
         "automation",
         "integration"
       ],
-      "sha256": "3367a458502b1fde7681e7d2167d9443b334f0c3371e2c29822e64edf4fd660e"
+      "sha256": "303ad3dc151854a0aba97db7fcc662a1b61edd886e71d08aa8acb44f9b023864"
     },
     {
       "id": "navidrome",
@@ -2595,7 +2617,7 @@
         "vpn",
         "security"
       ],
-      "sha256": "405cfd385f89247b609a30239cff38a76cc7d55a2e8d7a8224fb06fa1f851d2f"
+      "sha256": "0bfe1bc10be0f534813e2ac7e9202ffb21dafad16524261c18100c07d8c37d67"
     },
     {
       "id": "wikijs",
