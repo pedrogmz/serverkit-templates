@@ -9,7 +9,7 @@ categories:
   - gaming
 
 ports:
-  - port: 8080
+  - port: 8081
     protocol: tcp
     description: Panel API Port
   - port: 2022
