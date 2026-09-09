@@ -8,13 +8,25 @@ documentation: https://calagopus.com/docs
 categories:
   - gaming
 
+variables:
+  - name: DAEMON_PORT
+    description: Daemon Port
+    type: port
+    default: "8081"
+    hidden: true
+  - name: DAEMON_SFTP_PORT
+    description: Daemon SFTP Port
+    type: port
+    default: "2022"
+    hidden: true
+
 ports:
-  - port: 8081
+  - port: "${DAEMON_PORT}"
     protocol: tcp
-    description: Panel API Port
-  - port: 2022
+    description: Daemon Port
+  - port: "${DAEMON_SFTP_PORT}"
     protocol: tcp
-    description: Wing Port
+    description: Daemon SFTP Port
 
 compose:
   services:
