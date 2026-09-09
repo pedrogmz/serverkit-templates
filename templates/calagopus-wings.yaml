@@ -46,7 +46,7 @@ compose:
         # do not mount directly to /etc/ssl/certs (right side), this will cause certificate issues within the container
         - "/etc/ssl/certs/wings/:/etc/ssl/certs/wings/:ro"
       ports:
-        - 8080:8080
+        - 8081:8081
         - 2022:2022
 
 post_install: |
